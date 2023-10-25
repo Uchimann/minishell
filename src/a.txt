@@ -1,0 +1,15 @@
+lex node'lar tokenleri ifade ediyor. her bir lex node içinde bir kelime ögesi veya meta karakter barındırıyor 
+örn: ls,
+     wc,
+     |,
+     ,,
+     echo
+     ismail
+
+lexer işlevi analiz sürecini başlatır ve ardışık işlevler komut satırını parçalar ve bu parçalara ilişkin bilgileri saklar. 
+create_lexlist işlevi, komut satırını metin öğelerine ayırır ve her bir metin öğesi için bir veri yapısı oluşturur.
+parse_cmd işlevi ise metin öğelerini oluştururken karakterleri kopyalar ve bellek tahsisi yapar.
+
+flag = flag ^ 1; => flag değişkeni 1 ise flag değişkenşnin bit depğerlerini '1' ile karşılaştırıyor birbirine aynısya sıfır döndürüyor
+yani flag 1 iken flag ^ 1 sıfır döndürür. flag 0 iken flag ^ 1 bir döndürür.
+
