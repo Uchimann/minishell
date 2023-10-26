@@ -14,9 +14,9 @@
 
 int	pipe_error_check(t_lexlist *lex_list)
 {
-	if (lex_list->next && lex_list->next->type == SIGN_PIPE)
-		return (print_lex_error(lex_list));
-	else if (!lex_list->next)
+	if (lex_list->next && lex_list->next->type == SIGN_PIPE) //next varsa ve type'ı PIPE ise
+		return (print_lex_error(lex_list)); //hata mesajı return eder. yani sıfır döner
+	else if (!lex_list->next) // next yoksa 
 		return (run_miss_arg(lex_list));
 	return (1);
 }

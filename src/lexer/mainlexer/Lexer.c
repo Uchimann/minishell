@@ -23,7 +23,7 @@
 void	lexer(void)
 {
 	g_core.lex_table = NULL;
-	create_lexlist(g_core.cmd, &(g_core.lex_table)); // -    ls | echo selam  -, table adresi
+	create_lexlist(g_core.cmd, &(g_core.lex_table)); // lexlistoluşturuluyor lex table nodeları oluşturuluyor ve contentleri dolduruluyor
 	classify(g_core.lex_table); // bu fonksiyonun içinde node'ların type'ları belirleniyor
 	syntax_check();
 }
