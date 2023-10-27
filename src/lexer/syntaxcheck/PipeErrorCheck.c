@@ -14,10 +14,10 @@
 
 int	pipe_error_check(t_lexlist *lex_list)
 {
-	if (lex_list->next && lex_list->next->type == SIGN_PIPE) //next varsa ve type'ı PIPE ise
+	if (lex_list->next && lex_list->next->type == SIGN_PIPE) //next varsa ve type'ı PIPE ise pıpe yanında pıpe ise durumu
 		return (print_lex_error(lex_list)); //hata mesajı return eder. yani sıfır döner
-	else if (!lex_list->next) // next yoksa 
-		return (run_miss_arg(lex_list));
+	else if (!lex_list->next) // next yoksa // son karakter pıpe kontrolu burda direk syntax error verdir.
+		return (run_miss_arg(lex_list)); // return perror free vs ıvır zıvır.
 	return (1);
 }
 

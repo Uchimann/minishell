@@ -34,11 +34,11 @@ int	read_missing_arg(int *fd)
 	int		return_value;
 
 	pid = 1;
-	pid = fork();
+	pid = fork(); // 00 ise child proccess oluştu demek
 	g_core.pid = pid;
 	g_core.is_read_arg = 1;
 	if (!pid)
-		read_missing_arg_value(fd);
+		read_missing_arg_value(fd); // child buraya girdi
 	close(fd[1]);
 	waitpid(pid, &return_value, 0);
 	g_core.is_read_arg = 0;
@@ -57,7 +57,7 @@ void	read_missing_arg_value(int *fd)
 {
 	char	*ptr;
 
-	close(fd[0]);
+	close(fd[0]); // read kapandı write yapıcak
 	while (1)
 	{
 		ptr = readline("> ");
