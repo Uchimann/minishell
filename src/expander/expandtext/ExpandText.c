@@ -30,7 +30,7 @@ void	expand_envs(char **dst, char *ptr)
 
 void	expand_order(char **dst, char **src)
 {
-	if (**src == *DOLLAR)
+	if (**src == *DOLLAR) // dolar ise 
 		expand_dollar(dst, src);
 	else
 	{

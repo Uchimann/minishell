@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	expand_dollar(char **dst, char **src)
+void	expand_dollar(char **dst, char **src) // NULL ptr, $ ptr
 {
 	char	*ptr;
 
@@ -25,7 +25,7 @@ void	expand_dollar(char **dst, char **src)
 		|| *ptr == *SINGLE_QUOTE)
 		single_dollar(dst);
 	else
-		expand_dollar_value(dst, src);
+		expand_dollar_value(dst, src); 
 }
 
 void	single_dollar(char **dst)
@@ -53,7 +53,7 @@ void	question_mark(char **dst, char **src)
 	(*src)++;
 }
 
-void	expand_dollar_value(char **dst, char **src)
+void	expand_dollar_value(char **dst, char **src) // NULL ptr $ ptr
 {
 	int		count;
 	char	*ptr;
@@ -66,7 +66,7 @@ void	expand_dollar_value(char **dst, char **src)
 		return ;
 	}
 	while (*ptr != ' ' && *(ptr) && *ptr != *DOUBLE_QUOTE
-		&& *ptr != *SINGLE_QUOTE && *ptr != '$')
+		&& *ptr != *SINGLE_QUOTE && *ptr != '$') // teyit kontrolü // harf var ise
 	{
 		count++;
 		ptr++;
