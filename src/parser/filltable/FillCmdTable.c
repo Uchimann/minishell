@@ -35,12 +35,12 @@ void	fill_cmdnode(t_cmdlist *node, t_lexlist **lex_list)
 	char	**path_holder;
 	int		is_begin;
 
-	node->path = create_path(*lex_list);
+	node->path = create_path(*lex_list); // node'un path'ine yer açtık
 	path_holder = node->path;
 	is_begin = 0;
 	while (*lex_list && (*lex_list)->type != SIGN_PIPE)
 	{
-		if (create_new_filelist(node, lex_list))
+		if (create_new_filelist(node, lex_list)) // node text ise sıfır geliyor. 
 			continue ;
 		if (!(is_begin++) && (*lex_list)->content)
 			expand_cmd(&((*lex_list)->content));

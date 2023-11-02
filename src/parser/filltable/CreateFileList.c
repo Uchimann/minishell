@@ -20,11 +20,11 @@ int	create_new_filelist(t_cmdlist *node, t_lexlist **lex_list)
 
 	if (((*lex_list)->type) == TEXT)
 		return (0);
-	meta = compare_metachars((*lex_list)->content);
+	meta = compare_metachars((*lex_list)->content); // meta char'ı gösteren ptr return ediliyor.
 	filename = NULL;
 	if ((*lex_list)->next)
 		filename = (*lex_list)->next->content;
-	if (*meta != *PIPE)
+	if (*meta != *PIPE) // Meta PIPE değilse 
 	{
 		temp_filelist = add_filelist(&(node->files), filename, meta);
 		temp_filelist->metachar = (*lex_list)->content;
