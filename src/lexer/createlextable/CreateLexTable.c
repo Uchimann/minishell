@@ -26,7 +26,7 @@ void	parse_cmd(char **cmd_line, t_lexlist *last_node) //düğüm oluştu içerik
 	size_t	count;
 	char	*holder_content;
 
-	count = get_cmdlen(*cmd_line);
+	count = get_cmdlen(*cmd_line); 
 	holder_content = (char *)malloc(sizeof(char) * (count) + 1);
 	last_node->content = holder_content;
 	holder_content[count] = 0;

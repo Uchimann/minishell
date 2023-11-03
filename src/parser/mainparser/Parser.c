@@ -15,7 +15,7 @@
 void	parser(void)
 {
 	g_core.cmd_table = NULL;
-	create_cmdtable(g_core.lex_table);
+	create_cmdtable(g_core.lex_table); // içleri NULL olan standartları belirlenmiş, işlem sayısı kadar node oluşturuldu.
 	fill_cmdtable();
 	create_files(g_core.cmd_table);
 }

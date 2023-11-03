@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:37:58 by hsozan            #+#    #+#             */
-/*   Updated: 2023/10/25 19:51:53 by icelebi          ###   ########.fr       */
+/*   Updated: 2023/11/02 19:04:31 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	Lexer 4 asamali prjenin ilk asamasidir. Burada amac
 	girilen karisik komutlari sozcuk yapilarina ayirmaktir.
-	orn komut: <a.txt cat| ls| wc -l | echo "ahmet $HOME''"selam
+	orn komut: <a.txt cat| ls| wc -l | echo "ahmet $HOME''"selam    
 	lexer calistiktan sonra bagil liste deki
 	contentlerin ciktisi soyle olmalidir:
 	<, a.txt, cat, |, ls, |, wc, -l, |, echo, "ahmet $HOME''"selam'$PATH'

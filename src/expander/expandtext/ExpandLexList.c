@@ -29,8 +29,8 @@ void	expand_values_from_lexlist(void)
 			expand_text(lex_table, 0); // 
 		else if (lex_table->next && lex_table->type != SIGN_PIPE) // < > << >>
 		{
-			if (lex_table->type != SIGN_DOUBLE_LESS)
-				expand_text(lex_table->next, 1); // echo ismail > a.txt
+			if (lex_table->type != SIGN_DOUBLE_LESS) // heredocc değilse ise yani < > ise 
+				expand_text(lex_table->next, 1); //
 			lex_table = lex_table->next;
 		}
 		lex_table = lex_table->next;

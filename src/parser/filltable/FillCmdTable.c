@@ -35,14 +35,14 @@ void	fill_cmdnode(t_cmdlist *node, t_lexlist **lex_list)
 	char	**path_holder;
 	int		is_begin;
 
-	node->path = create_path(*lex_list); // node'un path'ine yer açtık
-	path_holder = node->path;
+	node->path = create_path(*lex_list); // node'un path'ine yer açtık Pıpe olan lexnode'unu görene kadar.
+	path_holder = node->path; // patholder açılan path yerlerinin başını gösteriyor.
 	is_begin = 0;
-	while (*lex_list && (*lex_list)->type != SIGN_PIPE)
+	while (*lex_list && (*lex_list)->type != SIGN_PIPE) // baktığımız yerin tipi PIPE değilse
 	{
-		if (create_new_filelist(node, lex_list)) // node text ise sıfır geliyor. 
-			continue ;
-		if (!(is_begin++) && (*lex_list)->content)
+		if (create_new_filelist(node, lex_list)) // node text ise sıfır geliyor. metachar ise sağına bakıyor file_list oluşturuyor. (özellikleriyle beraber).
+			continue ;                // filename'ı a.txt vs oldu. a.txt yi de atlatıp onun sağına geçiyor artık > a.txt , kısmının sağındaki şeyi gösteriyor
+		if (!(is_begin++) && (*lex_list)->content) // ilk elemansa ve TEXT ise buraya girer.
 			expand_cmd(&((*lex_list)->content));
 		if ((*lex_list)->content)
 			*(path_holder++) = (*lex_list)->content;
