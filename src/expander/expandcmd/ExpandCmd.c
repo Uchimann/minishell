@@ -12,6 +12,11 @@
 
 #include "../../../include/minishell.h"
 
+/* CHAT GPT:
+expand_cmd fonksiyonu "PATH" çevresel değişkenini arar ve bulur. 
+Diyelim ki "PATH" değişkeninin değeri şu şekildedir: 
+"/usr/bin:/bin:/usr/sbin"   */
+
 void	expand_cmd(char **dst)
 {
 	t_env	*temp_env;
@@ -21,14 +26,22 @@ void	expand_cmd(char **dst)
 	{
 		if (str_compare("PATH", temp_env->env_name))
 		{
-			expand_from_env_value(dst, temp_env->content);
+			expand_from_env_value(dst, temp_env->content); // lexlistin contenti ile env'nin contenti gidiyor
 			return ;
 		}
 		temp_env = temp_env->next;
 	}
 }
 
-void	expand_from_env_value(char **dst, char *content)
+
+/* ":" karakterine göre bölümlere ayırır. Yani, "/usr/bin", "/bin" ve "/usr/sbin"
+Her bir parça, get_arg_from_env_value fonksiyonu tarafından kontrol edilir.
+Örneğin, ilk parça olan "/usr/bin" kontrol edilir.
+"ls -l" komutu bu parçayı bulmaya çalışır.
+Eğer "/usr/bin/ls" varsa, bu yol geçerli kabul edilir ve control_ptr işaretçisi ile yerine konur.*/
+
+
+void	expand_from_env_value(char **dst, char *content) // PATH içindeki değerin (/usr/bin:/bin:/usr/sbin) olup olmadığını kontrol eder.
 {
 	char	*control_ptr;
 
@@ -37,15 +50,15 @@ void	expand_from_env_value(char **dst, char *content)
 		control_ptr = get_arg_from_env_value(&content, *dst);
 		if (!access(control_ptr, F_OK))
 		{
-			free(*dst);
-			*dst = control_ptr;
+			free(*dst); // lexlistin contenti free'leniyor.
+			*dst = control_ptr; // aşağıdan gelen dizin lexlistin contentine atılıyor.
 			return ;
 		}
 		free(control_ptr);
 	}
 }
 
-char	*get_arg_from_env_value(char **envs, char *search_arg_name)
+char	*get_arg_from_env_value(char **envs, char *search_arg_name) // ":" karakterine göre bölümlere ayırır. Yani, "/usr/bin", "/bin" ve "/usr/sbin"
 {
 	char	*ptr;
 	int		count;

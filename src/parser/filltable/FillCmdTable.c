@@ -42,7 +42,7 @@ void	fill_cmdnode(t_cmdlist *node, t_lexlist **lex_list)
 	{
 		if (create_new_filelist(node, lex_list)) // node text ise sıfır geliyor. metachar ise sağına bakıyor file_list oluşturuyor. (özellikleriyle beraber).
 			continue ;                // filename'ı a.txt vs oldu. a.txt yi de atlatıp onun sağına geçiyor artık > a.txt , kısmının sağındaki şeyi gösteriyor
-		if (!(is_begin++) && (*lex_list)->content) // ilk elemansa ve TEXT ise buraya girer.
+		if (!(is_begin++) && (*lex_list)->content) // ilk elemansa? ve TEXT ise buraya girer. Contentimiz komut ise lexcontenti, komutun dizini ile değiştirir.
 			expand_cmd(&((*lex_list)->content));
 		if ((*lex_list)->content)
 			*(path_holder++) = (*lex_list)->content;
