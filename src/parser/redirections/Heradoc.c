@@ -21,7 +21,7 @@ void	run_heredocs(t_cmdlist *node)
 		temp_file = node->files;
 		while (temp_file)
 		{
-			if (temp_file->metachar[1] == DOUBLE_LESS[1])
+			if (temp_file->metachar[1] == DOUBLE_LESS[1]) // file'ımızın metacharı << ise 
 			{
 				if (!read_heredoc(node, temp_file->filename))
 					return ;
@@ -43,11 +43,11 @@ int	read_heredoc(t_cmdlist *node, char *eof)
 	pid = fork();
 	g_core.is_read_arg = 1;
 	g_core.pid = pid;
-	if (!pid)
+	if (!pid) // çocuk işlemde çalışıyorsak fill heredoc çağırılır.
 		fill_heredoc(eof, fd);
-	close(fd[1]);
-	waitpid(pid, &return_value, 0);
-	return_value = WEXITSTATUS(return_value);
+	close(fd[1]); // yazma tarafı kapanır. Çocuk işlemi işini tamamlamıştır artık bu satırda.
+	waitpid(pid, &return_value, 0); // çocuk işin tamamlamasını bekler.Çocuk işleminin Çıkış durumunu return value'ya atar.
+	return_value = WEXITSTATUS(return_value); // çocuk işlem sinyal ile bitmişse sinyal kodunu return value'ya atar.
 	if (return_value == SIGNAL_C)
 	{
 		close(fd[0]);

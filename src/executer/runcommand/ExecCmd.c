@@ -12,15 +12,15 @@
 
 #include "../../../include/minishell.h"
 
-void	exec_command(t_cmdlist *cmd_node, int *fd, int fd_index)
+void	exec_command(t_cmdlist *cmd_node, int *fd, int fd_index) // node, NULL, -1
 {
 	char	*cmd;
 	int		builtin_index;
 
 	if (cmd_node && !cmd_node->cmd)
 		return ;
-	cmd = get_cmd(cmd_node->cmd);
-	builtin_index = is_builtin(cmd);
+	cmd = get_cmd(cmd_node->cmd); 
+	builtin_index = is_builtin(cmd); // hangi komut olduğunun return'u geliyor
 	if (builtin_index)
 		run_builtin(cmd_node, builtin_index, fd, fd_index);
 	else

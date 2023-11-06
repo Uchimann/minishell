@@ -31,7 +31,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-void	run_builtin(t_cmdlist *cmd_node, int builtin, int *fd, int fd_index)
+void	run_builtin(t_cmdlist *cmd_node, int builtin, int *fd, int fd_index) //node, hangi işlem(echo), NULL, -1(single com.)
 {
 	if (fd)
 		create_dup(cmd_node, fd, fd_index);

@@ -18,7 +18,7 @@ void	create_files(t_cmdlist *node)
 
 	if (!node)
 		return ;
-	run_heredocs(node);
+	run_heredocs(node); // heredoc içeriği oluşturulur. 
 	if (g_core.exec_output || !node)
 		return ;
 	while (node)
@@ -26,14 +26,14 @@ void	create_files(t_cmdlist *node)
 		temp_file = node->files;
 		while (temp_file)
 		{
-			if (*temp_file->metachar == *SINGLE_GREAT)
+			if (*temp_file->metachar == *SINGLE_GREAT) // > ise (yani çıkış dosyası oluşturulacaksa),  echo ismail > a.txt
 				create_outfile(node, temp_file);
 			else
-				create_infile(node, temp_file);
-			if (temp_file->fd == SSTDERR)
+				create_infile(node, temp_file); // > değilse (yani giriş dosyası okunacaksa), 
+			if (temp_file->fd == SSTDERR) // (standart hata yönlendirmesi varsa)
 			{
 				g_core.exec_output = 1;
-				break ;
+				break ; // iç içe döngü kırılır. 
 			}
 			temp_file = temp_file->next;
 		}

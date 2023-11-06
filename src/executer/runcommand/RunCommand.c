@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	run_multiple_command(t_cmdlist *cmd_list)
+void	run_multiple_command(t_cmdlist *cmd_list) // olayların deepfocus başladığı yer :) buraya çalışılacak.
 {
 	int			*fd;
 
