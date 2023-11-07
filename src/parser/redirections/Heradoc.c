@@ -56,11 +56,11 @@ int	read_heredoc(t_cmdlist *node, char *eof)
 		return (0);
 	}
 	g_core.is_read_arg = 0;
-	set_heredoc_value(node, fd);
+	set_heredoc_value(node, fd); // node'un cmd sine heredoctan alınan girdiyi ekliyor.
 	return (1);
 }
 
-void	set_heredoc_value(t_cmdlist *node, int *fd)
+void	set_heredoc_value(t_cmdlist *node, int *fd) 
 {
 	char	ptr[1];
 
@@ -76,7 +76,7 @@ void	set_heredoc_value(t_cmdlist *node, int *fd)
 	own_strjoin(&g_core.cmd, node->heredoc_values);
 }
 
-void	fill_heredoc(char *eof, int *fd)
+void	fill_heredoc(char *eof, int *fd) // cmd den girdi alıyor ve Pıpe'un içine yazıyor.
 {
 	char	*heredoc_lines;
 
@@ -90,7 +90,7 @@ void	fill_heredoc(char *eof, int *fd)
 	exit(EXIT_SUCCESS);
 }
 
-char	*get_heredoc_values(char *eof)
+char	*get_heredoc_values(char *eof) // <<EOF örneğindeki EOF metnini görene kadar readline ile girdi  alıyor line'a ekliyor.
 {
 	char	*line;
 	char	*newline;
@@ -100,18 +100,18 @@ char	*get_heredoc_values(char *eof)
 	is_begin = 0;
 	while (1)
 	{
-		newline = env_check(readline("> "));
-		if (str_compare(eof, newline))
+		newline = env_check(readline("> ")); // readline ile girdi alırken alınan girdinin env değişken olup olmadığını da kontrol eder.
+		if (str_compare(eof, newline)) 
 		{
 			free(newline);
 			break ;
 		}
-		else if (is_begin++)
+		else if (is_begin++)   // ilk girişte buraya girmez ilk enterdan sonra buraya girer. her satır(enter) sonrası newline ekler
 			str_addchar(&line, '\n');
 		own_strjoin(&line, newline);
 		if (newline)
 			free(newline);
 	}
-	str_addchar(&line, '\n');
+	str_addchar(&line, '\n'); // tüm alınan metnin en sonuna newline ekleyip return eder.
 	return (line);
 }
