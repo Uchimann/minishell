@@ -25,7 +25,7 @@ void	sig_handler(int signum)
 	write(1, "\n", 1);
 	free_for_loop();
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_redisplay();
 }
 

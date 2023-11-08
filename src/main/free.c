@@ -17,7 +17,7 @@ void	free_core(void)
 	free_metachars();
 	free_envtable();
 	free_title();
-	rl_clear_history();
+	//rl_clear_history();
 }
 
 void	free_for_loop(void)
