@@ -17,11 +17,11 @@ expand_cmd fonksiyonu "PATH" çevresel değişkenini arar ve bulur.
 Diyelim ki "PATH" değişkeninin değeri şu şekildedir: 
 "/usr/bin:/bin:/usr/sbin"   */
 
-void	expand_cmd(char **dst)
+void	expand_cmd(t_core *g_core,char **dst)
 {
 	t_env	*temp_env;
 
-	temp_env = g_core.env_table;
+	temp_env = g_core->env_table;
 	while (temp_env && *dst && **dst)
 	{
 		if (str_compare("PATH", temp_env->env_name))

@@ -12,20 +12,20 @@
 
 #include "../../../include/minishell.h"
 
-void	expand_dollar(char **dst, char **src) // NULL ptr, $ ptr
+void	expand_dollar(t_core *g_core,char **dst, char **src) // NULL ptr, $ ptr
 {
 	char	*ptr;
 
 	ptr = (*src) + 1;
 	if (*ptr == *DOLLAR)
-		double_dollar(dst, src);
+		double_dollar(g_core,dst, src);
 	else if (*ptr == *QUSTION_MARK)
-		question_mark(dst, src);
+		question_mark(g_core,dst, src);
 	else if (*ptr == ' ' || !*ptr || *ptr == *DOUBLE_QUOTE
 		|| *ptr == *SINGLE_QUOTE)
 		single_dollar(dst);
 	else
-		expand_dollar_value(dst, src); 
+		expand_dollar_value(g_core,dst, src); 
 }
 
 void	single_dollar(char **dst)
@@ -33,27 +33,27 @@ void	single_dollar(char **dst)
 	str_addchar(dst, *DOLLAR);
 }
 
-void	double_dollar(char **dst, char **src)
+void	double_dollar(t_core *g_core,char **dst, char **src)
 {
 	char	*line;
 
-	line = ft_itoa(g_core.old_exec_output);
+	line = ft_itoa(g_core->old_exec_output);
 	own_strjoin(dst, line);
 	free(line);
 	(*src)++;
 }
 
-void	question_mark(char **dst, char **src)
+void	question_mark(t_core *g_core,char **dst, char **src)
 {
 	char	*line;
 
-	line = ft_itoa(g_core.old_exec_output);
+	line = ft_itoa(g_core->old_exec_output);
 	own_strjoin(dst, line);
 	free(line);
 	(*src)++;
 }
 
-void	expand_dollar_value(char **dst, char **src) // NULL ptr $ ptr
+void	expand_dollar_value(t_core *g_core,char **dst, char **src) // NULL ptr $ ptr
 {
 	int		count;
 	char	*ptr;
@@ -62,7 +62,7 @@ void	expand_dollar_value(char **dst, char **src) // NULL ptr $ ptr
 	ptr = (*src) + 1;
 	if (*ptr == '{')
 	{
-		brace_check(dst, src);
+		brace_check(g_core,dst, src);
 		return ;
 	}
 	while (*ptr != ' ' && *(ptr) && *ptr != *DOUBLE_QUOTE
@@ -72,7 +72,7 @@ void	expand_dollar_value(char **dst, char **src) // NULL ptr $ ptr
 		ptr++;
 	}
 	ptr = ft_strpcpy(NULL, (*src) + 1, count);
-	expand_envs(dst, ptr);
+	expand_envs(g_core,dst, ptr);
 	free(ptr);
 	*src += count;
 }

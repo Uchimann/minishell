@@ -19,10 +19,10 @@ node'path ler belirlendi (ls -la)
 infile outfile standart olarak belirlendi
 */
 
-void	parser(void)
+void	parser(t_core *g_core)
 {
-	g_core.cmd_table = NULL;
-	create_cmdtable(g_core.lex_table); // içleri NULL olan standartları belirlenmiş, işlem sayısı kadar node oluşturuldu.
-	fill_cmdtable(); // şimdilik:   process node'larındaki node path leri dolduruyor. lexnodelardaki contentlerin dizinleri olan versiyonu ile güncelliyor. procceess nodelarımızdaki cmd değişkenini baş komut ile belirliyor.
-	create_files(g_core.cmd_table); // echo ismail > a.txt için: node'umuzun outfile'ı filelistimizdeki fd oldu
+	g_core->cmd_table = NULL;
+	create_cmdtable(g_core,g_core->lex_table); // içleri NULL olan standartları belirlenmiş, işlem sayısı kadar node oluşturuldu.
+	fill_cmdtable(g_core); // şimdilik:   process node'larındaki node path leri dolduruyor. lexnodelardaki contentlerin dizinleri olan versiyonu ile güncelliyor. procceess nodelarımızdaki cmd değişkenini baş komut ile belirliyor.
+	create_files(g_core,g_core->cmd_table); // echo ismail > a.txt için: node'umuzun outfile'ı filelistimizdeki fd oldu
 }

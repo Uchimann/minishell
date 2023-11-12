@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	run_cd(t_cmdlist *cmd_node)
+void	run_cd(t_core *g_core,t_cmdlist *cmd_node)
 {
 	int		array_len;
 
@@ -20,26 +20,26 @@ void	run_cd(t_cmdlist *cmd_node)
 	if (cmd_node->path[1] && str_compare(cmd_node->path[1], \
 		"-") && array_len == 2)
 	{
-		change_dir(get_env("OLDPWD"));
+		change_dir(g_core,get_env(g_core,"OLDPWD"));
 		return ;
 	}
 	else if (array_len > 2)
 	{
-		g_core.exec_output = 1;
+		g_core->exec_output = 1;
 		print_error("-bash: cd: too many arguments\n", NULL, NULL);
 	}
 	else if (array_len == 2)
-		cd_double_arg(cmd_node);
+		cd_double_arg(g_core,cmd_node);
 	else
-		cd_single_arg();
+		cd_single_arg(g_core);
 }
 
-void	cd_single_arg(void)
+void	cd_single_arg(t_core *g_core)
 {
 	t_env	*temp_env;
 	char	*content;
 
-	temp_env = g_core.env_table;
+	temp_env = g_core->env_table;
 	while (temp_env)
 	{
 		if (str_compare("HOME", temp_env->env_name))
@@ -47,27 +47,27 @@ void	cd_single_arg(void)
 			content = temp_env->content;
 			if (!content)
 				return ;
-			change_dir(content);
+			change_dir(g_core,content);
 			return ;
 		}
 		temp_env = temp_env->next;
 	}
 	print_error("-bash: cd: HOME not set\n", NULL, NULL);
-	g_core.exec_output |= 1;
+	g_core->exec_output |= 1;
 }
 
-void	cd_double_arg(t_cmdlist *cmd_node)
+void	cd_double_arg(t_core *g_core,t_cmdlist *cmd_node)
 {
-	if (!change_dir(cmd_node->path[1]))
+	if (!change_dir(g_core,cmd_node->path[1]))
 	{
 		print_error("--bash: cd: ", cmd_node->path[1],
 			": No such file or directory\n");
-		g_core.exec_output = 1;
+		g_core->exec_output = 1;
 		return ;
 	}
 }
 
-int	change_dir(char *path)
+int	change_dir(t_core *g_core,char *path)
 {
 	char	pwd[256];
 	int		is_pwdaccess;
@@ -82,25 +82,25 @@ int	change_dir(char *path)
 			free(oldpwd);
 		return (0);
 	}
-	is_pwdaccess = update_pwd_from_export("PWD", getcwd(pwd, 256));
+	is_pwdaccess = update_pwd_from_export(g_core,"PWD", getcwd(pwd, 256));
 	if (is_pwdaccess)
-		update_pwd_from_export("OLDPWD", oldpwd);
+		update_pwd_from_export(g_core,"OLDPWD", oldpwd);
 	else
-		delete_env("OLDPWD");
+		delete_env(g_core,"OLDPWD");
 	if (oldpwd)
 		free(oldpwd);
-	change_title();
+	change_title(g_core);
 	return (1);
 }
 
-int	update_pwd_from_export(char *pwd_name, char *pwd_content)
+int	update_pwd_from_export(t_core *g_core, char *pwd_name, char *pwd_content)
 {
 	t_env	*temp_env;
 	char	*temp_pwd;
 
-	if (!update_env(pwd_name, pwd_content))
+	if (!update_env(g_core,pwd_name, pwd_content))
 	{
-		temp_env = g_core.env_table;
+		temp_env = g_core->env_table;
 		temp_pwd = NULL;
 		own_strjoin(&temp_pwd, pwd_name);
 		str_addchar(&temp_pwd, '=');

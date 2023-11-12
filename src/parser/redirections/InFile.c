@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	create_infile(t_cmdlist *node, t_filelist *file)
+void	create_infile(t_core *g_core, t_cmdlist *node, t_filelist *file)
 {
 	char	*pwd;
 	char	ptr[256];
@@ -34,7 +34,7 @@ void	create_infile(t_cmdlist *node, t_filelist *file)
 	{
 		print_error("-bash: ", file->filename,
 			": No such file or directory\n");
-		g_core.exec_output = 1;
+		g_core->exec_output = 1;
 		file->fd = SSTDERR;
 	}
 	node->infile = file->fd;

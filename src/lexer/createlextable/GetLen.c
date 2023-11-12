@@ -51,7 +51,7 @@ size_t	get_quotelen(char *cmd_line) // tek tırnak veya çift tırnak ise o tır
 	"Ahmet$HOME"ls echo -> "Ahmet$HOME"ls'in uzunlugu olan 14'u gonderir
 	gelen komut null'a gelene ya da bosluga gelene kadr donderilir.
 */
-size_t	get_cmdlen(char *cmd_line)   // söz öbeğinin uzunluğunu ölçüyor boşiluk görene kadar veya NULL görene kadar ilerletiyor.
+size_t	get_cmdlen(t_core *g_core,char *cmd_line)   // söz öbeğinin uzunluğunu ölçüyor boşiluk görene kadar veya NULL görene kadar ilerletiyor.
 {
 	size_t	count;
 	size_t	quotelen;
@@ -60,7 +60,7 @@ size_t	get_cmdlen(char *cmd_line)   // söz öbeğinin uzunluğunu ölçüyor bo
 	count = 0;
 	while (cmd_line && *cmd_line && *cmd_line != ' ')
 	{
-		is_meta = compare_metachars(cmd_line);
+		is_meta = compare_metachars(g_core,cmd_line);
 		if (is_meta)  //eğer metachar ise metachar'ın uzunluğunu count'a ekle 
 		{
 			if (!count)

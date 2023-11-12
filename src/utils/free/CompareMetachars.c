@@ -15,13 +15,13 @@
 	gonderilen karakter dizisi ile metakarakterleri kıyaslar
 	eger var ise olan metakarakteri return eder.
 */
-char	*compare_metachars(char *cmd_line)
+char	*compare_metachars(t_core *g_core,char *cmd_line)
 {
 	char	**meta_chars;
 
 	if (!cmd_line)
 		return (NULL);
-	meta_chars = g_core.metachars; // globaldeki metachar tablosunu alıyor.
+	meta_chars = g_core->metachars; // globaldeki metachar tablosunu alıyor.
 	while (meta_chars && *meta_chars)
 	{
 		if ((*cmd_line == **meta_chars && !*(*meta_chars + 1))  //cmd line'ın baktığın yeri metachar ise

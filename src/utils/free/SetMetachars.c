@@ -17,12 +17,12 @@
 	ve icerisine teker teker belirlenen metakarakterleri atar.
 	metakarakterler sirasiyla ">>", "<<", "<", ">", "|"'dir
 */
-void	set_metachars(void)
+void	set_metachars(t_core *g_core)
 {
 	char	**meta_list;
 
 	meta_list = (char **)malloc(sizeof(char *) * (METACHAR_NUM + 1));
-	g_core.metachars = meta_list;
+	g_core->metachars = meta_list;
 	*(meta_list++) = ft_strdup(DOUBLE_GREAT);
 	*(meta_list++) = ft_strdup(DOUBLE_LESS);
 	*(meta_list++) = ft_strdup(SINGLE_LESS);

@@ -17,23 +17,23 @@
 # include "macros.h"
 
 //ENV
-void	fill_envs(char **env);
+void	fill_envs(t_core *g_core,char **env);
 t_env	*add_newenv(t_env **env_table, char *env);
 
 char	*get_env_name(char *content);
 int		get_env_name_count(char *env_arg);
 
-int		update_env(char *env_name, char *new_arg);
+int		update_env(t_core *g_core,char *env_name, char *new_arg);
 
-char	**get_env_cpy(void);
-int		get_env_len(void);
+char	**get_env_cpy(t_core *g_core);
+int		get_env_len(t_core *g_core);
 void	free_env_cpy(char **envlist);
 
-int		env_arg_control(char *env);
+int		env_arg_control(t_core *g_core,char *env);
 
 //METACHAR
-char	*compare_metachars(char *cmd_line);
-void	set_metachars(void);
+char	*compare_metachars(t_core *g_core,char *cmd_line);
+void	set_metachars(t_core *g_core);
 
 //STR
 int		ft_atoi(const char *str);
@@ -68,16 +68,16 @@ int		ft_putstr_fd_len(char *s, int fd, int len);
 char	*ft_strrchr(char *s, int c);
 
 //TITLE
-void	set_title(void);
-void	change_title(void);
+void	set_title(t_core *g_core);
+void	change_title(t_core *g_core);
 
 //ERROR
-int		print_lex_error(t_lexlist *lex_list);
+int		print_lex_error(t_core *g_core,t_lexlist *lex_list);
 void	print_error(char *ptr1, char *ptr2, char *ptr3);
 
 //FREE
-void	free_metachars(void);
-void	free_envtable(void);
-void	free_title(void);
+void	free_metachars(t_core *g_core);
+void	free_envtable(t_core *g_core);
+void	free_title(t_core *g_core);
 
 #endif

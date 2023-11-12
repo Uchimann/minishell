@@ -30,21 +30,21 @@
 # include "executer.h"
 //#include "/usr/include/readline/history.h"
 
-extern t_core	g_core;
+extern t_core_sgn *sgn_core;
 
 //	MAIN
-void	init_core(char **env);
+void	init_core(t_core *g_core,char **env);
 
-void	free_for_loop(void);
-void	free_core(void);
+void	free_for_loop();
+void	free_core();
 
-void	update_loop(void);
+void	update_loop(t_core	*g_core);
 void	update_history(char *cmd);
 void	update_exec_output(void);
 
 void	sig_handler(int signum);
-int		signal_in_reading(void);
-int		signal_while_cmd_works(void);
-void	exit_signal_check(void);
+int		signal_in_reading(t_core_sgn *g_core);
+int		signal_while_cmd_works(t_core_sgn *g_core);
+void	exit_signal_check(t_core *g_core);
 
 #endif

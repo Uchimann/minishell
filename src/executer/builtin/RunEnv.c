@@ -12,11 +12,11 @@
 
 #include "../../../include/minishell.h"
 
-void	run_env(t_cmdlist *cmd_node)
+void	run_env(t_core *g_core,t_cmdlist *cmd_node)
 {
 	t_env	*temp_env;
 
-	temp_env = g_core.env_table;
+	temp_env = g_core->env_table;
 	while (temp_env)
 	{
 		if (temp_env->content)

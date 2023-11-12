@@ -23,14 +23,14 @@ void	print_files(t_filelist *temp_filelist)
 	ft_printf("\n\n");
 }
 
-void	print_parser(void)
+void	print_parser(t_core *g_core)
 {
 	int			node_count;
 	int			index;
 	t_cmdlist	*temp_cmdlist;
 
 	node_count = 1;
-	temp_cmdlist = g_core.cmd_table;
+	temp_cmdlist = g_core->cmd_table;
 	while (temp_cmdlist)
 	{
 		index = 0;

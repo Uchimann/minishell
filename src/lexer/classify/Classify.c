@@ -19,7 +19,7 @@
 	orda define edilmis degiskenler uzerinden yapilabilir.
 */
 
-void	classify(t_lexlist *lex_table)
+void	classify(t_core *g_core,t_lexlist *lex_table)
 {
 	char	*metachars;
 
@@ -27,7 +27,7 @@ void	classify(t_lexlist *lex_table)
 		return ;
 	while (lex_table)
 	{
-		metachars = compare_metachars(lex_table->content); // baktığımız düğümdeki contenti gönderiyoruz metacahr ise hangi metachar olduğunu alıyoruz. (ptr alıyor)
+		metachars = compare_metachars(g_core,lex_table->content); // baktığımız düğümdeki contenti gönderiyoruz metacahr ise hangi metachar olduğunu alıyoruz. (ptr alıyor)
 		if (metachars) //pointer'ın gösterdiği yerde birşey var ise
 			lex_table->type = (*metachars - 1) * ft_strlen(metachars); //baktığımız yerdeki node'un type'ı == (metachar'ın uzuluğu * metacharın ascci değeri) oldu.
 		else														   // buradaki -1 olayı >> de ascii kodunu ikiyle çarptığımızda pipe karakteriyle çelişiyor olmasından dolayı tüm metakarakterleri 1 eksiltiyoruz.

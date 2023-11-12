@@ -78,4 +78,22 @@ typedef struct s_core
 	t_need		n;
 }	t_core;
 
+
+typedef struct s_core_sgn
+{
+	int			pid;
+	int			exec_output;
+	int			old_exec_output;
+	int			heredoc_fd;
+	int			is_read_arg;
+	char		*usrname;
+	char		*cmd;
+	char		**metachars;
+	t_env		*env_table;
+	t_lexlist	*lex_table;
+	t_cmdlist	*cmd_table;
+	t_title		title;
+	t_need		n;
+}	t_core_sgn;
+
 #endif

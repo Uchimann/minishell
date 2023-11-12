@@ -16,10 +16,10 @@
 	mainde 3.parametre olarak aldığımız env değişkenini alır
 	ve bağlı liste yapısına doldurur.
 */
-void	fill_envs(char **env)
+void	fill_envs(t_core *g_core,char **env)
 {
 	while (env && *env)
-		add_newenv(&g_core.env_table, *(env++));
+		add_newenv(&g_core->env_table, *(env++));
 }
 
 /*
@@ -55,11 +55,11 @@ t_env	*add_newenv(t_env **env_table, char *env)
 	return (last_node);
 }
 
-char	*get_env(char *env_name)
+char	*get_env(t_core *g_core,char *env_name)
 {
 	t_env	*temp_env;
 
-	temp_env = g_core.env_table;
+	temp_env = g_core->env_table;
 	while (temp_env)
 	{
 		if (str_compare(env_name, temp_env->env_name))

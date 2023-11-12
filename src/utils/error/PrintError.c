@@ -12,12 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-int	print_lex_error(t_lexlist *lex_list)
+int	print_lex_error(t_core *g_core,t_lexlist *lex_list)
 {
 	print_error("-bash: syntax error near unexpected token '",
 		lex_list->content, "'\n");
-	g_core.exec_output = 2;
-	free_lexer_without_heredoc(lex_list);
+	g_core->exec_output = 2;
+	free_lexer_without_heredoc(g_core,lex_list);
 	return (0);
 }
 

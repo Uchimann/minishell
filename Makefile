@@ -1,11 +1,11 @@
 NAME = minishell
 
 #NORMALİ
-CFLAGS	:= -Wall -Werror -Wextra -I $(INCLUDE) /goinfre/homebrew/opt/readline/include
-READLINE = -lreadline -L /goinfre/homebrew/opt/readline/lib
+CFLAGS	:= -g -I $(INCLUDE) /homebrew/opt/readline/include
+READLINE = -lreadline -L /Users/icelebi/homebrew/opt/readline/lib 
 #LCFLAGS	:= -Wall -Werror -Wextra -I $(INCLUDE) /usr/include/readline
 #SEFA
-#CFLAGS	:= -Wall -Werror -Wextra -I $(INCLUDE) /Users/sefatunca/homebrew/opt/readline/include
+CFLAGS	:=  -I $(INCLUDE) /Users/icelebi/homebrew/opt/readline/include
 
 #READLINE = -lreadline -L /Users/sefatunca/homebrew/opt/readline/lib
 #LREADLINE = -L/usr/include -lreadline 

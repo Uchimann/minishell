@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	run_multiple_command(t_cmdlist *cmd_list) // olayların deepfocus başladığı yer :) buraya çalışılacak.
+void	run_multiple_command(t_core *g_core,t_cmdlist *cmd_list) // olayların deepfocus başladığı yer :) buraya çalışılacak.
 {
 	int			*fd;
 
@@ -23,7 +23,7 @@ void	run_multiple_command(t_cmdlist *cmd_list) // olayların deepfocus başladı
 		pipe(&fd[2]);
 		cmd_list->pid = fork();
 		if (cmd_list->pid <= 0)
-			run_process(cmd_list, fd, 2);
+			run_process(g_core,cmd_list, fd, 2);
 		cmd_list = cmd_list->next;
 		if (fd[4] && fd[5])
 		{
@@ -34,11 +34,11 @@ void	run_multiple_command(t_cmdlist *cmd_list) // olayların deepfocus başladı
 		}
 	}
 	clear_pipe(fd);
-	wait_all();
+	wait_all(g_core);
 }
 
-void	run_single_command(t_cmdlist *cmd_list, int *fd)
+void	run_single_command(t_core *g_core,t_cmdlist *cmd_list, int *fd)
 {
 	if (cmd_list->infile != SSTDERR && cmd_list->outfile != SSTDERR)
-		exec_command(cmd_list, fd, -1);
+		exec_command(g_core,cmd_list, fd, -1);
 }

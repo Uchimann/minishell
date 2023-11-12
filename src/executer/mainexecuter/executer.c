@@ -12,12 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-void	executer(void)
+void	executer(t_core *g_core)
 {
-	if (!g_core.cmd_table)
+	if (!g_core->cmd_table)
 		return ;
-	else if (!g_core.cmd_table->next)
-		run_single_command(g_core.cmd_table, NULL);
+	else if (!g_core->cmd_table->next)
+		run_single_command(g_core,g_core->cmd_table, NULL);
 	else
-		run_multiple_command(g_core.cmd_table);
+		run_multiple_command(g_core,g_core->cmd_table);
 }

@@ -12,12 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-void	free_parser(void)
+void	free_parser(t_core *g_core)
 {
 	t_cmdlist	*parser;
 	t_cmdlist	*temp_parser;
 
-	parser = g_core.cmd_table;
+	parser = g_core->cmd_table;
 	while (parser)
 	{
 		temp_parser = parser;
@@ -29,7 +29,7 @@ void	free_parser(void)
 			free(temp_parser->heredoc_values);
 		free(temp_parser);
 	}
-	g_core.cmd_table = NULL;
+	g_core->cmd_table = NULL;
 }
 
 void	free_filelist(t_filelist *files)

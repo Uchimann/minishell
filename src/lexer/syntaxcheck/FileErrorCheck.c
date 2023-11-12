@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-int	file_error_check(t_lexlist *lex_list) // bir sonraki node'un type'ı text ise 1 döndürüyor sonraki düğüm yoksa veya text değilse 0 return ediyor
+int	file_error_check(t_core *g_core,t_lexlist *lex_list) // bir sonraki node'un type'ı text ise 1 döndürüyor sonraki düğüm yoksa veya text değilse 0 return ediyor
 {
 	if (!lex_list->next || (lex_list->next && lex_list->next->type != TEXT)) // next yoksa veya nextin type'ı TEXT değilse
 	{
@@ -20,16 +20,16 @@ int	file_error_check(t_lexlist *lex_list) // bir sonraki node'un type'ı text is
 		{
 			print_error("-bash: syntax error near unexpected token '",
 				lex_list->next->content, "'\n");
-			g_core.exec_output = 2;
-			free_lexer_without_heredoc(lex_list);
+			g_core->exec_output = 2;
+			free_lexer_without_heredoc(g_core,lex_list);
 			return (0);
 		}
 		else //next yoksa
 		{
 			print_error("-bash: syntax error near unexpected token '",
 				"newline", "'\n");
-			g_core.exec_output = 2;
-			free_lexer_without_heredoc(lex_list);
+			g_core->exec_output = 2;
+			free_lexer_without_heredoc(g_core,lex_list);
 			return (0);
 		}
 	}

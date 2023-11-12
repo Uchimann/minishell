@@ -12,11 +12,11 @@
 
 #include "../../../include/minishell.h"
 
-void	expand_envs(char **dst, char *ptr)
+void	expand_envs(t_core *g_core,char **dst, char *ptr)
 {
 	t_env	*copy_envs;
 
-	copy_envs = g_core.env_table;
+	copy_envs = g_core->env_table;
 	while (copy_envs)
 	{
 		if (str_compare(ptr, copy_envs->env_name))
@@ -28,14 +28,14 @@ void	expand_envs(char **dst, char *ptr)
 	}
 }
 
-void	expand_order(char **dst, char **src)
+void	expand_order(t_core *g_core,char **dst, char **src)
 {
 	if (**src == *DOLLAR) // dolar ise 
-		expand_dollar(dst, src);
+		expand_dollar(g_core,dst, src);
 	else
 	{
 		if (**src == *TILDA && *(*src + 1) != *DOUBLE_QUOTE)
-			expand_envs(dst, "HOME");
+			expand_envs(g_core,dst, "HOME");
 		else
 			own_strjoin(dst, "~");
 	}

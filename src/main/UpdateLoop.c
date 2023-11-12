@@ -12,11 +12,11 @@
 
 #include "../../include/minishell.h"
 
-void	update_loop(void)
+void	update_loop(t_core	*g_core)
 {
-	g_core.old_exec_output = g_core.exec_output;
-	g_core.exec_output = 0;
-	g_core.is_read_arg = 0;
+	g_core->old_exec_output = g_core->exec_output;
+	g_core->exec_output = 0;
+	g_core->is_read_arg = 0;
 }
 
 void	update_history(char *cmd)

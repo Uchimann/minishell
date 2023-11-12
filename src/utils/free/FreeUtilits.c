@@ -12,24 +12,24 @@
 
 #include "../../../include/minishell.h"
 
-void	free_metachars(void)
+void	free_metachars(t_core *g_core)
 {
 	char	**temp_metachars;
 
-	temp_metachars = g_core.metachars;
+	temp_metachars = g_core->metachars;
 	if (!temp_metachars)
 		return ;
 	while (temp_metachars && *temp_metachars)
 		free(*(temp_metachars++));
-	free(g_core.metachars);
+	free(g_core->metachars);
 }
 
-void	free_envtable(void)
+void	free_envtable(t_core *g_core)
 {
 	t_env	*env;
 	t_env	*temp_env;
 
-	env = g_core.env_table;
+	env = g_core->env_table;
 	while (env)
 	{
 		temp_env = env;
@@ -40,8 +40,8 @@ void	free_envtable(void)
 	}
 }
 
-void	free_title(void)
+void	free_title(t_core *g_core)
 {
-	free(g_core.title.full_title);
-	free(g_core.title.head);
+	free(g_core->title.full_title);
+	free(g_core->title.head);
 }

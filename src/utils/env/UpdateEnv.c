@@ -12,11 +12,11 @@
 
 #include "../../../include/minishell.h"
 
-int	update_env(char *env_name, char *new_arg)
+int	update_env(t_core *g_core, char *env_name, char *new_arg)
 {
 	t_env	*env;
 
-	env = g_core.env_table;
+	env = g_core->env_table;
 	while (env)
 	{
 		if (str_compare(env->env_name, env_name))

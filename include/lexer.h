@@ -17,40 +17,40 @@
 # include "macros.h"
 
 //MAIN
-void		lexer(void);
+void		lexer(t_core *g_core);
 
 //CREATELEXTABLE
-void		create_lexlist(char *cmdline, t_lexlist **lex_table);
-void		parse_cmd(char **cmd_line, t_lexlist *last_node);
+void		create_lexlist(t_core *g_core,char *cmdline, t_lexlist **lex_table);
+void		parse_cmd(t_core *g_core,char **cmd_line, t_lexlist *last_node);
 
 t_lexlist	*add_new_lex_node(t_lexlist **cmd_table);
 
 size_t		get_quotelen(char *cmd_line);
-size_t		get_cmdlen(char *cmd_line);
+size_t		get_cmdlen(t_core *g_core, char *cmd_line);
 
 //CLASSIFY
-void		classify(t_lexlist *lex_table);
+void		classify(t_core *g_core,t_lexlist *lex_table);
 
 //SYNTAXCHECK
-void		syntax_check(void);
-int			syntax_error_check(t_lexlist *lex_list);
+void		syntax_check(t_core *g_core);
+int			syntax_error_check(t_core *g_core,t_lexlist *lex_list);
 
-int			pipe_error_check(t_lexlist *lex_list);
-int			run_miss_arg(t_lexlist *lex_list);
+int			pipe_error_check(t_core *g_core,t_lexlist *lex_list);
+int			run_miss_arg(t_core *g_core,t_lexlist *lex_list);
 
-char		*get_missing_arg(void);
-int			read_missing_arg(int *fd);
-void		read_missing_arg_value(int *fd);
+char		*get_missing_arg(t_core *g_core);
+int			read_missing_arg(t_core *g_core,int *fd);
+void		read_missing_arg_value(t_core *g_core,int *fd);
 int			control_valid_arg(char *ptr);
 
-int			file_error_check(t_lexlist *lex_list);
+int			file_error_check(t_core *g_core,t_lexlist *lex_list);
 
 //FREELEXER
-void		free_lexer(void);
-void		free_lexer_without_heredoc(t_lexlist *stop_list);
+void		free_lexer(t_core *g_core);
+void		free_lexer_without_heredoc(t_core *g_core,t_lexlist *stop_list);
 int			skip_heredoc(t_lexlist **lex, t_lexlist **temp,
 				t_lexlist *stop, int *flag);
 
-void		print_lexer(void);
+void		print_lexer(t_core *g_core);
 
 #endif

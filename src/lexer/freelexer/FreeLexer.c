@@ -27,40 +27,40 @@ int	skip_heredoc(t_lexlist **lex, t_lexlist **temp, t_lexlist *stop, int *flag)
 	return (0);
 }
 
-void	free_lexer_without_heredoc(t_lexlist *stop_list)
+void	free_lexer_without_heredoc(t_core *g_core, t_lexlist *stop_list)
 {
 	t_lexlist	*lexer;
 	t_lexlist	*temp_lexer;
 	int			flag;
 
-	lexer = g_core.lex_table;
+	lexer = g_core->lex_table;
 	flag = 0;
 	while (lexer)
 	{
 		if (skip_heredoc(&lexer, &temp_lexer, stop_list, &flag))
 			continue ;
-		if (g_core.lex_table == lexer)
+		if (g_core->lex_table == lexer)
 		{
-			g_core.lex_table = g_core.lex_table->next;
-			temp_lexer = g_core.lex_table;
+			g_core->lex_table = g_core->lex_table->next;
+			temp_lexer = g_core->lex_table;
 		}
 		else
 			temp_lexer->next = lexer->next;
 		free(lexer->content);
 		free(lexer);
-		if (g_core.lex_table == temp_lexer)
+		if (g_core->lex_table == temp_lexer)
 			lexer = temp_lexer;
 		else
 			lexer = temp_lexer->next;
 	}
 }
 
-void	free_lexer(void)
+void	free_lexer(t_core *g_core)
 {
 	t_lexlist	*lexer;
 	t_lexlist	*temp_lexer;
 
-	lexer = g_core.lex_table;
+	lexer = g_core->lex_table;
 	while (lexer)
 	{
 		temp_lexer = lexer;
@@ -69,5 +69,5 @@ void	free_lexer(void)
 			free(temp_lexer->content);
 		free(temp_lexer);
 	}
-	g_core.lex_table = NULL;
+	g_core->lex_table = NULL;
 }

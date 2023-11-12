@@ -12,11 +12,11 @@
 
 #include "../../../include/minishell.h"
 
-void	print_lexer(void)
+void	print_lexer(t_core *g_core)
 {
 	t_lexlist	*lexer_temp;
 
-	lexer_temp = g_core.lex_table;
+	lexer_temp = g_core->lex_table;
 	ft_printf ("~LEXER TABLE~\n");
 	while (lexer_temp)
 	{

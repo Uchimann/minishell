@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	create_cmdtable(t_lexlist *lex_table)
+void	create_cmdtable(t_core *g_core,t_lexlist *lex_table)
 {
 	int		count;
 
@@ -32,7 +32,7 @@ void	create_cmdtable(t_lexlist *lex_table)
 		}
 		lex_table = lex_table->next;
 	}
-	create_cmdtable_nodes(count);
+	create_cmdtable_nodes(g_core,count);
 }
 
 void	fill_cmdtable_node(t_cmdlist *node)
@@ -47,15 +47,15 @@ void	fill_cmdtable_node(t_cmdlist *node)
 	node->heredoc_values = NULL;
 }
 
-void	create_cmdtable_nodes(int count)
+void	create_cmdtable_nodes(t_core *g_core,int count)
 {
 	t_cmdlist	*temp_cmdtable;
 
 	if (!count)
 		return ;
-	g_core.cmd_table = (t_cmdlist *)malloc(sizeof(t_cmdlist));
-	fill_cmdtable_node(g_core.cmd_table);
-	temp_cmdtable = g_core.cmd_table;
+	g_core->cmd_table = (t_cmdlist *)malloc(sizeof(t_cmdlist));
+	fill_cmdtable_node(g_core->cmd_table);
+	temp_cmdtable = g_core->cmd_table;
 	while (--count)
 	{
 		temp_cmdtable->next = (t_cmdlist *)malloc(sizeof(t_cmdlist));

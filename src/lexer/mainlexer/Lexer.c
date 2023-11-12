@@ -20,10 +20,10 @@
 	contentlerin ciktisi soyle olmalidir:
 	<, a.txt, cat, |, ls, |, wc, -l, |, echo, "ahmet $HOME''"selam'$PATH'
 */
-void	lexer(void)
+void	lexer(t_core *g_core)
 {
-	g_core.lex_table = NULL;
-	create_lexlist(g_core.cmd, &(g_core.lex_table)); // lexlistoluşturuluyor lex table nodeları oluşturuluyor ve contentleri dolduruluyor
-	classify(g_core.lex_table); // bu fonksiyonun içinde node'ların type'ları belirleniyor
-	syntax_check();
+	g_core->lex_table = NULL;
+	create_lexlist(g_core, g_core->cmd, &(g_core->lex_table)); // lexlistoluşturuluyor lex table nodeları oluşturuluyor ve contentleri dolduruluyor
+	classify(g_core,g_core->lex_table); // bu fonksiyonun içinde node'ların type'ları belirleniyor
+	syntax_check(g_core);
 }

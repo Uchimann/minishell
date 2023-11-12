@@ -12,14 +12,14 @@
 
 #include "../../../include/minishell.h"
 
-char	*get_missing_arg(void)
+char	*get_missing_arg(t_core *g_core)
 {
 	char	*ptr;
 	int		fd[2];
 	char	c[1];
 
 	pipe(fd);
-	if (!read_missing_arg(fd))
+	if (!read_missing_arg(g_core,fd))
 		return (NULL);
 	ptr = NULL;
 	while (read(fd[0], c, 1))
@@ -28,32 +28,32 @@ char	*get_missing_arg(void)
 	return (ptr);
 }
 
-int	read_missing_arg(int *fd)
+int	read_missing_arg(t_core *g_core,int *fd)
 {
 	int		pid;
 	int		return_value;
 
 	pid = 1;
 	pid = fork(); // 00 ise child proccess oluştu demek
-	g_core.pid = pid;
-	g_core.is_read_arg = 1;
+	g_core->pid = pid;
+	g_core->is_read_arg = 1;
 	if (!pid)
-		read_missing_arg_value(fd); // child buraya girdi
+		read_missing_arg_value(g_core,fd); // child buraya girdi
 	close(fd[1]);
 	waitpid(pid, &return_value, 0);
-	g_core.is_read_arg = 0;
+	g_core->is_read_arg = 0;
 	return_value = WEXITSTATUS(return_value);
 	if (return_value == SIGNAL_C)
 	{
 		close(fd[0]);
-		update_history(g_core.cmd);
-		free_for_loop();
+		update_history(g_core->cmd);
+		free_for_loop(g_core);
 		return (0);
 	}
 	return (1);
 }
 
-void	read_missing_arg_value(int *fd)
+void	read_missing_arg_value(t_core *g_core,int *fd)
 {
 	char	*ptr;
 
@@ -66,8 +66,8 @@ void	read_missing_arg_value(int *fd)
 		write(fd[1], ptr, ft_strlen(ptr));
 		close(fd[1]);
 		free(ptr);
-		free_for_loop();
-		free_core();
+		free_for_loop(g_core);
+		free_core(g_core);
 		exit(EXIT_SUCCESS);
 	}
 }

@@ -12,25 +12,25 @@
 
 #include "../../../include/minishell.h"
 
-void	fill_cmdtable(void)
+void	fill_cmdtable(t_core *g_core)
 {
 	t_cmdlist	*temp_cmdtable;
 	t_lexlist	*temp_lexlist;
 
-	if (!g_core.cmd_table)
+	if (!g_core->cmd_table)
 		return ;
-	temp_cmdtable = g_core.cmd_table;
-	temp_lexlist = g_core.lex_table;
+	temp_cmdtable = g_core->cmd_table;
+	temp_lexlist = g_core->lex_table;
 	while (temp_cmdtable)
 	{
-		fill_cmdnode(temp_cmdtable, &temp_lexlist);
+		fill_cmdnode(g_core,temp_cmdtable, &temp_lexlist);
 		if (temp_lexlist && *temp_lexlist->content == *PIPE)
 			temp_lexlist = temp_lexlist->next;
 		temp_cmdtable = temp_cmdtable->next;
 	}
 }
 
-void	fill_cmdnode(t_cmdlist *node, t_lexlist **lex_list)
+void	fill_cmdnode(t_core *g_core,t_cmdlist *node, t_lexlist **lex_list)
 {
 	char	**path_holder;
 	int		is_begin;
@@ -40,10 +40,10 @@ void	fill_cmdnode(t_cmdlist *node, t_lexlist **lex_list)
 	is_begin = 0;
 	while (*lex_list && (*lex_list)->type != SIGN_PIPE) // baktığımız yerin tipi PIPE değilse
 	{
-		if (create_new_filelist(node, lex_list)) // node text ise sıfır geliyor. metachar ise sağına bakıyor file_list oluşturuyor. (özellikleriyle beraber).
+		if (create_new_filelist(g_core,node, lex_list)) // node text ise sıfır geliyor. metachar ise sağına bakıyor file_list oluşturuyor. (özellikleriyle beraber).
 			continue ;                // filename'ı a.txt vs oldu. a.txt yi de atlatıp onun sağına geçiyor artık > a.txt , kısmının sağındaki şeyi gösteriyor
 		if (!(is_begin++) && (*lex_list)->content) // ilk elemansa? ve TEXT ise buraya girer. Contentimiz komut ise lexcontenti, komutun dizini ile değiştirir.
-			expand_cmd(&((*lex_list)->content));
+			expand_cmd(g_core,&((*lex_list)->content));
 		if ((*lex_list)->content)
 			*(path_holder++) = (*lex_list)->content;
 		*lex_list = (*lex_list)->next;

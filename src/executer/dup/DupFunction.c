@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-void	create_dup(t_cmdlist *cmd_list, int *fd, int fd_index)
+void	create_dup(t_core *g_core,t_cmdlist *cmd_list, int *fd, int fd_index)
 {
 	int	new_fd[2];
 
@@ -27,7 +27,7 @@ void	create_dup(t_cmdlist *cmd_list, int *fd, int fd_index)
 	}
 	else if (cmd_list->infile > SSTDERR)
 		dup2(cmd_list->infile, STDIN_FILENO);
-	else if (fd && cmd_list != g_core.cmd_table)
+	else if (fd && cmd_list != g_core->cmd_table)
 		dup2(fd[fd_index - 2], STDIN_FILENO);
 	if (cmd_list->outfile > SSTDERR)
 		dup2(cmd_list->outfile, STDOUT_FILENO);

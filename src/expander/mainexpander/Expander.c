@@ -12,10 +12,10 @@
 
 #include "../../../include/minishell.h"
 
-void	expander(void)
+void	expander(t_core *g_core)
 {
-	if (g_core.exec_output == 2) // exec return değeri 2 ise burdan çıkıcak. 
+	if (g_core->exec_output == 2) // exec return değeri 2 ise burdan çıkıcak. 
 		return ;
-	expand_values_from_lexlist(); // düğümlerdeki text olan tüm contentleri gerçek çıktıları ile güncelledik. < > gibi karakterlerin sağını kontrol ettik.
-	clear_void_contents(); // listede contenti NULL olan node'ları siler.
+	expand_values_from_lexlist(g_core); // düğümlerdeki text olan tüm contentleri gerçek çıktıları ile güncelledik. < > gibi karakterlerin sağını kontrol ettik.
+	clear_void_contents(g_core); // listede contenti NULL olan node'ları siler.
 }

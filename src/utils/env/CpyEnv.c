@@ -12,12 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-int	get_env_len(void)
+int	get_env_len(t_core *g_core)
 {
 	t_env	*env_list;
 	int		count;
 
-	env_list = g_core.env_table;
+	env_list = g_core->env_table;
 	count = 0;
 	while (env_list)
 	{
@@ -28,17 +28,17 @@ int	get_env_len(void)
 	return (count);
 }
 
-char	**get_env_cpy(void)
+char	**get_env_cpy(t_core *g_core)
 {
 	int		env_len;
 	char	**envlist;
 	char	*temp_env;
 	t_env	*temp_envlist;
 
-	env_len = get_env_len();
+	env_len = get_env_len(g_core);
 	envlist = (char **)malloc(sizeof(char *) * (env_len + 1));
 	envlist[env_len] = NULL;
-	temp_envlist = g_core.env_table;
+	temp_envlist = g_core->env_table;
 	while (temp_envlist)
 	{
 		if (temp_envlist->content)

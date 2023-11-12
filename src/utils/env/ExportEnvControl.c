@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-char	*valid_env(char *env)
+char	*valid_env(t_core *g_core,char *env)
 {
 	int	flag;
 
@@ -22,21 +22,21 @@ char	*valid_env(char *env)
 	while (*env != ' ' && *env && *env != '=')
 	{
 		if ((*env > '0' && *env < '9' && !flag)
-			|| compare_metachars(env))
+			|| compare_metachars(g_core,env))
 			return (NULL);
 		env++;
 	}
 	return (env);
 }
 
-char	*env_name_control(char *env)
+char	*env_name_control(t_core *g_core,char *env)
 {
 	char	*env_temp;
 
 	if (!env || *env == ' ' || *env == '=')
 		return (NULL);
 	env_temp = env;
-	env_temp = valid_env(env_temp);
+	env_temp = valid_env(g_core,env_temp);
 	if (!env_temp || (*env_temp != '=' && *env_temp))
 		return (NULL);
 	if (*env_temp == '=')
@@ -45,10 +45,10 @@ char	*env_name_control(char *env)
 		return (env_temp);
 }
 
-int	env_arg_control(char *env)
+int	env_arg_control(t_core *g_core,char *env)
 {
-	if (env_name_control(env))
+	if (env_name_control(g_core,env))
 		return (1);
-	g_core.exec_output = 1;
+	g_core->exec_output = 1;
 	return (0);
 }

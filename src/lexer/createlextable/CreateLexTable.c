@@ -21,12 +21,12 @@
 	uzerinden arttirilma islemleri yapilir.
 	Boylece fonksiyonun cagirildigi yerde de adres arttirilmis olur.
 */
-void	parse_cmd(char **cmd_line, t_lexlist *last_node) //düğüm oluştu içerikleri hepsi NULL. Burada bu içeriklerin içleri doldurulacak 
+void	parse_cmd(t_core *g_core, char **cmd_line, t_lexlist *last_node) //düğüm oluştu içerikleri hepsi NULL. Burada bu içeriklerin içleri doldurulacak 
 {
 	size_t	count;
 	char	*holder_content;
 
-	count = get_cmdlen(*cmd_line); 
+	count = get_cmdlen(g_core,*cmd_line); 
 	holder_content = (char *)malloc(sizeof(char) * (count) + 1);
 	last_node->content = holder_content;
 	holder_content[count] = 0;
@@ -41,7 +41,7 @@ void	parse_cmd(char **cmd_line, t_lexlist *last_node) //düğüm oluştu içerik
 	 ve olusturulan yeni node komut ayiriciya gonderilir.
 	Ardindan recurisive ile komut sona gelene kadar fonksiyon tekrardan cagirilir.
 */
-void	create_lexlist(char *cmdline, t_lexlist **lex_table)// -    ls | echo selam  -, table adresi geldi
+void	create_lexlist(t_core *g_core,char *cmdline, t_lexlist **lex_table)// -    ls | echo selam  -, table adresi geldi
 {
 	t_lexlist	*last_node;
 
@@ -49,6 +49,6 @@ void	create_lexlist(char *cmdline, t_lexlist **lex_table)// -    ls | echo selam
 	if (!cmdline || !*cmdline)
 		return ;
 	last_node = add_new_lex_node(lex_table);
-	parse_cmd(&cmdline, last_node); // oluşan node'ların contentini oluşturmaya gönderiyor.
-	create_lexlist(cmdline, lex_table);
+	parse_cmd(g_core, &cmdline, last_node); // oluşan node'ların contentini oluşturmaya gönderiyor.
+	create_lexlist(g_core,cmdline, lex_table);
 }

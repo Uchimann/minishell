@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-int	create_new_filelist(t_cmdlist *node, t_lexlist **lex_list)
+int	create_new_filelist(t_core *g_core,t_cmdlist *node, t_lexlist **lex_list)
 {
 	char		*meta;
 	char		*filename;
@@ -20,7 +20,7 @@ int	create_new_filelist(t_cmdlist *node, t_lexlist **lex_list)
 
 	if (((*lex_list)->type) == TEXT)
 		return (0);
-	meta = compare_metachars((*lex_list)->content); // meta char'ı gösteren ptr return ediliyor.
+	meta = compare_metachars(g_core,(*lex_list)->content); // meta char'ı gösteren ptr return ediliyor.
 	filename = NULL;
 	if ((*lex_list)->next)
 		filename = (*lex_list)->next->content;
